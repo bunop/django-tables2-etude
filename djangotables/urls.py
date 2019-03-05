@@ -16,9 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from tutorial.views import people
+from tutorial.views import people, do_stuff
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^people/', people)
+    url(r'^people/', people, name="people"),
+    url(r'^do_stuff/', do_stuff, name="do_stuff")
 ]

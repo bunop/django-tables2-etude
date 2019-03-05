@@ -16,10 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from tutorial.views import PersonList, do_stuff
+from tutorial.views import PersonList
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^people/', PersonList.as_view(), name="people"),
-    url(r'^do_stuff/', do_stuff, name="do_stuff")
 ]

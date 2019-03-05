@@ -9,11 +9,9 @@ class PersonList(SingleTableView):
     table_class = PersonTable
     template_name = "tutorial/people.html"
 
-
-def do_stuff(request):
-    if request.method == "POST":
+    def post(self, request, *args, **kwargs):
         list_of_ids = request.POST.getlist('check')
         objects = Person.objects.filter(id__in=list_of_ids)
         table = PersonTable(objects)
         RequestConfig(request).configure(table)
-        return render(request, 'tutorial/do_stuff.html', {'table': table})
+        return render(request, self.template_name, {'table': table})

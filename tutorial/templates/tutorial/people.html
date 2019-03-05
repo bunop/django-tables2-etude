@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     </head>
     <body>
-        <form method="POST" action={% url 'do_stuff' %}>
+        <form method="POST">
         {% csrf_token %}
         {% render_table table %}
         <button class="btn btn-primary red" type="submit">Submit</button>

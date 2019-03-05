@@ -1,5 +1,5 @@
 {# tutorial/templates/tutorial/do_stuff.html #}
-
+{% load render_table from django_tables2 %}
 <!doctype html>
 <html>
     <head>
@@ -7,8 +7,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     </head>
     <body>
-        {% for person in objects %}
-        {{ person }}<br>
-        {% endfor %}
+        {% render_table table %}
     </body>
 </html>

@@ -22,7 +22,11 @@ from tutorial.views import PersonList, BulkUpdate
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^people/', PersonList.as_view(), name="people"),
-    url(r'^bulk_update/', BulkUpdate.as_view(), name="bulk_update")
+    url(r'^bulk_update/', BulkUpdate.as_view(), name="bulk_update"),
+    url(r'^bulk/',
+        include(
+            ('bulk.urls', 'bulk'),
+            namespace="bulk")),
 ]
 
 

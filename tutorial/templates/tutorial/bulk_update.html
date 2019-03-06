@@ -1,16 +1,16 @@
-{# tutorial/templates/tutorial/people.html #}
-{% load render_table from django_tables2 %}
+{# tutorial/templates/tutorial/bulk_update.html #}
 <!doctype html>
 <html>
     <head>
-        <title>List of persons</title>
+        <title>Bulk update</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     </head>
     <body>
-        <form action={% url 'bulk_update'%} method="POST">
+        <form method="POST">
         {% csrf_token %}
-        {% render_table table %}
+        {{ form.as_p }}
         <button class="btn btn-primary red" type="submit">Submit</button>
+        <a href="{% url 'people' %}" class="btn btn-secondary" role="button">Return to people</a>
         <form>
     </body>
 </html>

@@ -1,16 +1,14 @@
 {# tutorial/templates/tutorial/bulk_update.html #}
-<!doctype html>
-<html>
-    <head>
-        <title>Bulk update</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    </head>
-    <body>
-        <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-primary red" type="submit">Submit</button>
-        <a href="{% url 'people' %}" class="btn btn-secondary" role="button">Return to people</a>
-        <form>
-    </body>
-</html>
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+
+{% block title %}Bulk update{% endblock title %}
+
+{% block content %}
+  <form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-primary red" type="submit">Submit</button>
+  <a href="{% url 'people' %}" class="btn btn-secondary" role="button">Return to people</a>
+  <form>
+{% endblock content %}

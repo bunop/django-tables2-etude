@@ -1,13 +1,10 @@
 {# bulk/templates/bulk/detail.html #}
-<!doctype html>
-<html>
-    <head>
-        <title>List of ids</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    </head>
-    <body>
-        {% for person_id in bulk.person_ids %}
-          {{ person_id }}<br>
-        {% endfor %}
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}List of ids{% endblock title %}
+
+{% block content %}
+  {% for person_id in bulk.person_ids %}
+    {{ person_id }}<br>
+  {% endfor %}
+{% endblock content %}

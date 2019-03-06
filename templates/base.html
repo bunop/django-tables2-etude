@@ -1,0 +1,19 @@
+{# templates/base.html #}
+<!doctype html>
+<html>
+  <head>
+    <title>{% block title %}Base Template Title{% endblock title %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  </head>
+  <body>
+    {% block body %}
+      {% block content %}
+        Hello World!
+      {% endblock content%}
+
+      <!-- Optional JavaScript -->
+      {% block custom-js %}{% endblock custom-js %}
+      
+    {% endblock body %}
+  </body>
+</html>

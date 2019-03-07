@@ -9,5 +9,30 @@
   {% csrf_token %}
   {% render_table table %}
   <button class="btn btn-primary red" type="submit">Submit</button>
+  <a href="{% url 'bulk:detail' %}" class="btn btn-secondary" role="button">Detail</a>
   <form>
 {% endblock content %}
+
+{% block domready %}
+  $(":checkbox").click(function(e){
+    if (this.checked) {
+      console.log("%s Is checked", this.value);
+      $.post(
+        '{% url "bulk:add" %}',
+        {person_id: this.value},
+        function( data ) {
+          console.log(data.status);
+        }
+      );
+    } else {
+      console.log("%s Is not checked", this.value);
+      $.post(
+        '{% url "bulk:remove" %}',
+        {person_id: this.value},
+        function( data ) {
+          console.log(data.status);
+        }
+      );
+    }
+  });
+{% endblock domready %}

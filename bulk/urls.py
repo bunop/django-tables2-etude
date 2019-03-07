@@ -12,11 +12,11 @@ from . import views
 app_name = 'bulk'
 
 urlpatterns = [
-    url(r'^$', views.bulk_detail, name='bulk_detail'),
-    url(r'add/(?P<pk>[-\w]+)/$',
+    url(r'^$', views.bulk_detail, name='detail'),
+    url(r'add/$',
         views.bulk_add,
-        name='bulk_add'),
-    url(r'remove/(?P<pk>[-\w]+)/$',
+        name='add'),
+    url(r'remove/$',
         views.bulk_remove,
-        name='bulk_remove'),
+        name='remove'),
 ]

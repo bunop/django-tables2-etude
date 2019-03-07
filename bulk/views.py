@@ -6,7 +6,9 @@ Created on Wed Mar  6 12:29:57 2019
 @author: Paolo Cozzi <cozzi@ibba.cnr.it>
 """
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from tutorial.models import Person
 
@@ -14,27 +16,40 @@ from .bulk import Bulk
 
 
 @require_POST
-def bulk_add(request, person_id):
+def bulk_add(request):
     bulk = Bulk(request)
-    person = get_object_or_404(Person, id=person_id)
+    person_id = request.POST.get('person_id')
+    print(person_id)
+    try:
+        person = Person.objects.get(pk=person_id)
+
+    except ObjectDoesNotExist:
+        return JsonResponse({'status': 'ko'})
 
     # update bulk object
     bulk.add(person.id)
 
-    return redirect('bulk:bulk_detail')
+    return JsonResponse({'status': 'ok'})
 
 
 @require_POST
-def bulk_remove(request, person_id):
+def bulk_remove(request):
     bulk = Bulk(request)
-    person = get_object_or_404(Person, id=person_id)
+    person_id = request.POST.get('person_id')
+    print(person_id)
+    try:
+        person = Person.objects.get(pk=person_id)
+
+    except ObjectDoesNotExist:
+        return JsonResponse({'status': 'ko'})
 
     # update bulk object
     bulk.remove(person.id)
 
-    return redirect('bulk:bulk_detail')
+    return JsonResponse({'status': 'ok'})
 
 
 def bulk_detail(request):
     bulk = Bulk(request)
+    print(bulk)
     return render(request, 'bulk/detail.html', {'bulk': bulk})

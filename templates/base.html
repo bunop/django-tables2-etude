@@ -11,9 +11,38 @@
         Hello World!
       {% endblock content%}
 
-      <!-- Optional JavaScript -->
-      {% block custom-js %}{% endblock custom-js %}
-      
     {% endblock body %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- We load the JS Cookie plugin from a public CDN so that we can easily interact with cookies-->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script>
+      // We read the value of the csrftoken cookie
+      var csrftoken = Cookies.get('csrftoken');
+
+      // check whether an HTTP method is safe
+      function csrfSafeMethod(method) {
+
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
+      // Before each AJAX request is performed, we check whether the
+      // request method is safe and the current request is not crossdomain.
+      $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        }
+      });
+
+      $(document).ready(function(){
+      {% block domready %}
+      {% endblock %}
+      });
+    </script>
+
   </body>
 </html>

@@ -63,3 +63,6 @@ class Bulk(object):
         self.save()
 
         # and what about my self.bulk attribute?
+
+    def __str__(self):
+        return str(self.bulk['person_ids'])

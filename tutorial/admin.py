@@ -10,5 +10,10 @@ from django.contrib import admin
 
 from .models import Person
 
+
+class PersonAdmin(admin.ModelAdmin):
+    list_per_page = 25
+
+
 # Register your models here.
-admin.site.register(Person, admin.ModelAdmin)
+admin.site.register(Person, PersonAdmin)

@@ -66,3 +66,9 @@ class Bulk(object):
 
     def __str__(self):
         return str(self.bulk['person_ids'])
+
+    def __contains__(self, item):
+        if item in self.bulk['person_ids']:
+            return True
+        else:
+            return False

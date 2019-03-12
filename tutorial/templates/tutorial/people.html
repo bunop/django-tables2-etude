@@ -1,13 +1,14 @@
 {# tutorial/templates/tutorial/people.html #}
 {% extends "base.html" %}
 {% load render_table from django_tables2 %}
+{% load bulk_tags %}
 
 {% block title %}List of persons{% endblock title %}
 
 {% block content %}
   <form action={% url 'bulk_update'%} method="POST">
   {% csrf_token %}
-  {% render_table table %}
+  {% render_table table "bootstrap.html" %}
   <button class="btn btn-primary red" type="submit">Submit</button>
   <a href="{% url 'bulk:detail' %}" class="btn btn-secondary" role="button">Detail</a>
   <form>

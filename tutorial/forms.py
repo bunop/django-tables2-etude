@@ -10,10 +10,4 @@ from django import forms
 
 
 class InfoForm(forms.Form):
-#    check = forms.MultipleChoiceField(
-#        # choices = LIST_OF_VALID_CHOICES, # this is optional
-#        widget=forms.CheckboxSelectMultiple,
-#    )
-
     info = forms.CharField()
-    update = forms.BooleanField(widget=forms.HiddenInput, required=False)

@@ -5,12 +5,9 @@
 {% block title %}List of persons{% endblock title %}
 
 {% block content %}
-  <form action={% url 'bulk_update'%} method="POST">
-  {% csrf_token %}
   {% render_table table "bootstrap.html" %}
-  <button class="btn btn-primary red" type="submit">Submit</button>
+  <a href="{% url 'bulk_update' %}" class="btn btn-primary red" role="button">Submit</a>
   <a href="{% url 'bulk:detail' %}" class="btn btn-secondary" role="button">Detail</a>
-  <form>
 {% endblock content %}
 
 {% block domready %}

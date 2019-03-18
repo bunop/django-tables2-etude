@@ -12,3 +12,15 @@
   <a href="{% url 'people' %}" class="btn btn-secondary" role="button">Return to people</a>
   <form>
 {% endblock content %}
+
+{% block domready %}
+  // read checked items
+  $.post(
+    '{% url "bulk:list"%}',
+    {},
+    function( data ) {
+      console.log(data.person_ids);
+    }
+  );
+
+{% endblock domready %}

@@ -19,4 +19,7 @@ urlpatterns = [
     url(r'remove/$',
         views.bulk_remove,
         name='remove'),
+    url(r'list/$',
+        views.bulk_list,
+        name='list'),
 ]

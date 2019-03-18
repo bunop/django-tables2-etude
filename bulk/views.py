@@ -19,7 +19,7 @@ from .bulk import Bulk
 def bulk_add(request):
     bulk = Bulk(request)
     person_id = request.POST.get('person_id')
-    print(person_id)
+
     try:
         person = Person.objects.get(pk=person_id)
 
@@ -36,7 +36,7 @@ def bulk_add(request):
 def bulk_remove(request):
     bulk = Bulk(request)
     person_id = request.POST.get('person_id')
-    print(person_id)
+
     try:
         person = Person.objects.get(pk=person_id)
 
@@ -49,7 +49,16 @@ def bulk_remove(request):
     return JsonResponse({'status': 'ok'})
 
 
+@require_POST
+def bulk_list(request):
+    bulk = Bulk(request)
+
+    # get all persons id
+    response = bulk.bulk["person_ids"]
+
+    return JsonResponse({"person_ids": response})
+
+
 def bulk_detail(request):
     bulk = Bulk(request)
-    print(bulk)
     return render(request, 'bulk/detail.html', {'bulk': bulk})

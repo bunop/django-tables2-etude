@@ -11,14 +11,32 @@
 {% endblock content %}
 
 {% block domready %}
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+  };
+
+  // get url parameters:
+  var page = getUrlParameter('page');
+
   // read checked items
   $.post(
     '{% url "bulk:list"%}',
-    {},
+    {page: page},
     function( data ) {
       console.log(data.person_ids);
       $.each(data.person_ids, function( index, value ) {
-        console.log(index + ": " + value);
+        // console.log(index + ": " + value);
         $("input:checkbox[value=" + value + "]").attr("checked", true);
       });
     }
@@ -26,21 +44,21 @@
 
   $(":checkbox").click(function(e){
     if (this.checked) {
-      console.log("%s Is checked", this.value);
+      // console.log("%s Is checked", this.value);
       $.post(
         '{% url "bulk:add" %}',
         {person_id: this.value},
         function( data ) {
-          console.log(data.status);
+          // console.log(data.status);
         }
       );
     } else {
-      console.log("%s Is not checked", this.value);
+      // console.log("%s Is not checked", this.value);
       $.post(
         '{% url "bulk:remove" %}',
         {person_id: this.value},
         function( data ) {
-          console.log(data.status);
+          // console.log(data.status);
         }
       );
     }

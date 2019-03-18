@@ -12,9 +12,12 @@ from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from tutorial.models import Person
 
+from common.decorators import ajax_required
+
 from .bulk import Bulk
 
 
+@ajax_required
 @require_POST
 def bulk_add(request):
     bulk = Bulk(request)
@@ -32,6 +35,7 @@ def bulk_add(request):
     return JsonResponse({'status': 'ok'})
 
 
+@ajax_required
 @require_POST
 def bulk_remove(request):
     bulk = Bulk(request)
@@ -49,9 +53,13 @@ def bulk_remove(request):
     return JsonResponse({'status': 'ok'})
 
 
+@ajax_required
 @require_POST
 def bulk_list(request):
     bulk = Bulk(request)
+
+    page = request.POST.get('page')
+    print("Page: %s" % (page))
 
     # get all persons id
     response = bulk.bulk["person_ids"]

@@ -11,6 +11,8 @@
 {% endblock content %}
 
 {% block domready %}
+  // Get url parameter jquery Or How to Get Query String Values In js
+  // https://stackoverflow.com/a/21903119
   var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL.split('&'),
@@ -29,36 +31,39 @@
   // get url parameters:
   var page = getUrlParameter('page');
 
-  // read checked items
+  // read checked items: for a certaing page get the list of checked ids,
+  // then march checked box on the page
   $.post(
     '{% url "bulk:list"%}',
     {page: page},
     function( data ) {
       console.log(data.person_ids);
       $.each(data.person_ids, function( index, value ) {
-        // console.log(index + ": " + value);
+        console.log(index + ": " + value);
         $("input:checkbox[value=" + value + "]").attr("checked", true);
       });
     }
   );
 
+  // if a checkbox is checked, add this id to bulk object. Is unchecked,
+  // remove it from bulk session object
   $(":checkbox").click(function(e){
     if (this.checked) {
-      // console.log("%s Is checked", this.value);
+      console.log("%s Is checked", this.value);
       $.post(
         '{% url "bulk:add" %}',
         {person_id: this.value},
         function( data ) {
-          // console.log(data.status);
+          console.log(data.status);
         }
       );
     } else {
-      // console.log("%s Is not checked", this.value);
+      console.log("%s Is not checked", this.value);
       $.post(
         '{% url "bulk:remove" %}',
         {person_id: this.value},
         function( data ) {
-          // console.log(data.status);
+          console.log(data.status);
         }
       );
     }

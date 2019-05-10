@@ -53,6 +53,7 @@ def bulk_remove(request):
     return JsonResponse({'status': 'ok'})
 
 
+# TODO: need to customize response relying on parameters received
 @ajax_required
 @require_POST
 def bulk_list(request):
@@ -60,6 +61,8 @@ def bulk_list(request):
 
     page = request.POST.get('page')
     print("Page: %s" % (page))
+    print(request)
+    print(request.user)
 
     # get all persons id
     response = bulk.bulk["person_ids"]

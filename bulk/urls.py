@@ -17,7 +17,7 @@ urlpatterns = [
         views.bulk_add,
         name='add'),
     url(r'remove/$',
-        views.bulk_remove,
+        views.BulkRemoveView.as_view(),
         name='remove'),
     url(r'list/$',
         views.bulk_list,

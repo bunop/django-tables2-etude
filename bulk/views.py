@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from tutorial.models import Person
 
-from common.decorators import ajax_required
+from common.decorators import ajax_required, AjaxGeneral
 
 from .bulk import Bulk
 
@@ -35,22 +35,43 @@ def bulk_add(request):
     return JsonResponse({'status': 'ok'})
 
 
-@ajax_required
-@require_POST
-def bulk_remove(request):
-    bulk = Bulk(request)
-    person_id = request.POST.get('person_id')
+#@ajax_required
+#@require_POST
+#def bulk_remove(request):
+#    bulk = Bulk(request)
+#    person_id = request.POST.get('person_id')
+#
+#    try:
+#        person = Person.objects.get(pk=person_id)
+#
+#    except ObjectDoesNotExist:
+#        return JsonResponse({'status': 'ko'})
+#
+#    # update bulk object
+#    bulk.remove(person.id)
+#
+#    return JsonResponse({'status': 'ok'})
 
-    try:
-        person = Person.objects.get(pk=person_id)
+# sample implementation using CBV
+class BulkRemoveView(AjaxGeneral):
+    # forcing POST methods only
+    # https://stackoverflow.com/a/36865283/4385116
+    http_method_names = ['post']
 
-    except ObjectDoesNotExist:
-        return JsonResponse({'status': 'ko'})
+    def post(self, request):
+        bulk = Bulk(self.request)
+        person_id = self.request.POST.get('person_id')
 
-    # update bulk object
-    bulk.remove(person.id)
+        try:
+            person = Person.objects.get(pk=person_id)
 
-    return JsonResponse({'status': 'ok'})
+        except ObjectDoesNotExist:
+            return JsonResponse({'status': 'ko'})
+
+        # update bulk object
+        bulk.remove(person.id)
+
+        return JsonResponse({'status': 'ok'})
 
 
 # TODO: need to customize response relying on parameters received
